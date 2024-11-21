@@ -7,16 +7,16 @@ import jakarta.persistence.Id;
 public class Book {
 
     @Id
-    private Integer ISBN;
+    private String ISBN;
     private String title;
     private String description;
     private String author;
 
-    public Integer getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(Integer ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 

@@ -1,0 +1,6 @@
+### Get all Books
+GET http://localhost:8080/books
+
+### Get Books by search keyword
+GET http://localhost:8080/books?search=art
+

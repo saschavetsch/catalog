@@ -19,6 +19,7 @@ public class BookController {
     }
     @GetMapping
     public List<Book> getFilteredBooks(@RequestParam(required = false) String search) {
+        search = (search == null) ? "" : search;
         return bookRepository.findAllByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCaseOrDescriptionContainingIgnoreCase(
                 search, search, search
         );
