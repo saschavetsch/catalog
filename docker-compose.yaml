@@ -1,3 +1,4 @@
+# Run the command 'docker-compose up' to start the services
 version: '3.9' # Specify the version of the Docker Compose file format!
 
 services:
