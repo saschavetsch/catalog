@@ -1,5 +1,4 @@
 # Run the command 'docker-compose up' to start the services
-version: '3.9' # Specify the version of the Docker Compose file format!
 
 services:
   catalog:
@@ -11,7 +10,9 @@ services:
 
   order:
     build:
-      context: ../order # Specify the folder '../order' if they have the same root directory
+      context: ../order
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
+    environment:
+      - CATALOG_SERVICE_URL=http://catalog:8080
