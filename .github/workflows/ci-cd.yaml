@@ -80,7 +80,7 @@ jobs:
       # - name: Build with Maven
       #   run: mvn spring-boot:build-image jacoco:report   # Run Maven Spring-Boot build-image task (includes test and package)
 
-      # New Step: Upload test results as artifacts
+      # New Step: Upload unit test results as artifacts
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         if: always()                        # Always upload test results
@@ -88,6 +88,13 @@ jobs:
           name: test-reports
           path: target/surefire-reports/
           retention-days: 7
+      
+      # Step : Upload Gatling results as artifacts
+      - name: Upload Gatling Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatling-results
+          path: target/gatling
 
       # Step 6: Authenticate with DockerHub
       # https://hub.docker.com/u/saschavetsch
