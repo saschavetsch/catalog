@@ -29,7 +29,7 @@ jobs:
 
       # Step 3: Cache Maven dependencies to speed up builds
       - name: Cache Maven packages
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.m2                                               # Location of Maven cache
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}   # Cache key based on OS and pom.xml
