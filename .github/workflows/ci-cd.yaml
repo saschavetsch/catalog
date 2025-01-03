@@ -37,7 +37,7 @@ jobs:
 
       # Step 4: Build the project using Maven
       - name: Build with Maven
-        run: mvn spring-boot:build-image    # Run Maven Spring-Boot build-image task (includes test and package)
+        run: mvn spring-boot:build-image jacoco:report   # Run Maven Spring-Boot build-image task (includes test and package)
 
       # New Step: Upload test results as artifacts
       - name: Upload Test Results
