@@ -69,4 +69,4 @@ jobs:
         uses: actions/upload-artifact@v4      # Action for publishing JaCoCo reports
         with:
           name: jacoco-report
-          path: target/jacoco/                # Path to JaCoCo report
+          path: target/site/jacoco/                # Path to JaCoCo report
