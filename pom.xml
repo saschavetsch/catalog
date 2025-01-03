@@ -73,8 +73,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>CatalogApplication</finalName>
+                    <finalName>CatalogApplication</finalName> 
+                    <mainClass>ch.fhnw.catalog.CatalogApplication</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
