@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     # Specify the runner environment
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       # Step 1: Check out the repository code
@@ -68,5 +68,5 @@ jobs:
       # - name: Publish JaCoCo Coverage Report
       #   uses: madrapps/jacoco-report@v1.3                                 # Action for publishing JaCoCo reports
       #   with:
-      #     paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml    # Path to JaCoCo report
+      #     paths: ${{ github.workspace }}/target/jacoco/jacoco.xml         # Path to JaCoCo report
       #     token: ${{ secrets.TOKEN_GITHUB}}                               # GitHub token for authentication
