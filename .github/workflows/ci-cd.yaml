@@ -60,7 +60,7 @@ jobs:
         with:
           context: .                                                          # Build context is root directory
           push: true                                                          # Actually push the image
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/microservice-name:latest    # Image name and tag
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/catalog:latest    # Image name and tag
 
       # # Step 8: Generate and publish code coverage report
       # - name: Publish JaCoCo Coverage Report
