@@ -64,9 +64,9 @@ jobs:
           push: true                                                # Actually push the image
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/catalog:latest    # Image name and tag
 
-      # # Step 8: Generate and publish code coverage report
-      # - name: Publish JaCoCo Coverage Report
-      #   uses: madrapps/jacoco-report@v1.3                                 # Action for publishing JaCoCo reports
-      #   with:
-      #     paths: ${{ github.workspace }}/target/jacoco/jacoco.xml         # Path to JaCoCo report
-      #     token: ${{ secrets.TOKEN_GITHUB}}                               # GitHub token for authentication
+      # Step 8: Generate and publish code coverage report
+      - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v4      # Action for publishing JaCoCo reports
+        with:
+          name: jacoco-report
+          path: target/jacoco/                # Path to JaCoCo report
