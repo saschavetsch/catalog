@@ -37,7 +37,7 @@ jobs:
 
       # Step 4: Build the project using Maven
       - name: Build with Maven
-        run: mvn -B package --file pom.xml    # Run Maven in batch mode (-B) to package the application
+        run: mvn -B clean test package --file pom.xml    # Run Maven in batch mode (-B) to package the application
 
       # # Step 5: Publish test results even if previous steps fail
       # - name: Publish Test Results
