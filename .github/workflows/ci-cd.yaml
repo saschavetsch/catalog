@@ -33,6 +33,38 @@ jobs:
           path: ~/.m2                                               # Location of Maven cache
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}   # Cache key based on OS and pom.xml
           restore-keys: ${{ runner.os }}-m2                         # Fallback cache key (if path to cache not found)
+      
+      # Step : Build JAR and skip tests (for load testing)
+      - name: Build application
+        run: mvn clean package -DskipTests
+
+      # Step 9: Start application for end-to-end tests
+      - name: Start application
+        run: java -jar target/CatalogApplication.jar &
+
+      # Step : Confirm Catalog service is running for load testing
+      - name: Wait for catalog service to start
+        run: |
+          timeout=300
+          while ! curl -s -o /dev/null -w "%{http_code}" http://localhost:8080 | grep -q "404"
+          do
+            if [ $timeout -le 0 ]; then
+              echo "Timed out waiting for catalog service!"
+              exit 1
+            fi
+            echo "Waiting for catalog service to be ready..."
+            sleep 5
+            timeout=$((timeout - 5))
+          done
+          echo "Catalog service is ready!"
+
+      # Step : Run Gatling load tests
+      - name: Run Gatling load tests
+        run: mvn gatling:test
+
+      # Step 12: Stop order application after load testing
+      - name: Stop application
+        run: pkill -f 'java -jar'
 
       # Step 4: Build the project using Maven
       - name: Build with Maven
