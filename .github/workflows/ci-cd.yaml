@@ -37,7 +37,10 @@ jobs:
       
       # Step : Build JAR and skip tests (for load testing)
       - name: Build application
-        run: mvn clean package -DskipTests
+        run: |    
+          mvn clean package -DskipTests
+          mvn spring-boot:build-image
+          mvn jacoco:report
 
       # Step 9: Start application for end-to-end tests
       - name: Start application
@@ -67,9 +70,9 @@ jobs:
       - name: Stop application
         run: pkill -f 'java -jar'
 
-      # Step 4: Build the project using Maven
-      - name: Build with Maven
-        run: mvn spring-boot:build-image jacoco:report   # Run Maven Spring-Boot build-image task (includes test and package)
+      # # Step 4: Build the project using Maven
+      # - name: Build with Maven
+      #   run: mvn spring-boot:build-image jacoco:report   # Run Maven Spring-Boot build-image task (includes test and package)
 
       # New Step: Upload test results as artifacts
       - name: Upload Test Results
