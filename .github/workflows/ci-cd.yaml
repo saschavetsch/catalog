@@ -37,15 +37,16 @@ jobs:
 
       # Step 4: Build the project using Maven
       - name: Build with Maven
-        # run: mvn -B clean test package --file pom.xml    # Run Maven in batch mode (-B) to package the application
-        run: mvn spring-boot:build-image
+        run: mvn spring-boot:build-image    # Run Maven Spring-Boot build-image task (includes test and package)
 
-      # # Step 5: Publish test results even if previous steps fail
-      # - name: Publish Test Results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2
-      #   if: always()                                        # Ensures this step runs even if tests fail
-      #   with:
-      #     files: target/surefire-reports/*.xml              # Location of JUnit test results
+      # New Step: Upload test results as artifacts
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()    # Always upload test results
+        with:
+          name: test-reports
+          path: target/surefire-reports/
+          retention-days: 7
 
       # Step 6: Authenticate with DockerHub
       # https://hub.docker.com/u/saschavetsch
@@ -57,10 +58,10 @@ jobs:
 
       # Step 7: Build and push Docker image
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3                                  # Official Docker build and push action
+        uses: docker/build-push-action@v3                           # Official Docker build and push action
         with:
-          context: .                                                          # Build context is root directory
-          push: true                                                          # Actually push the image
+          context: .                                                # Build context is root directory
+          push: true                                                # Actually push the image
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/catalog:latest    # Image name and tag
 
       # # Step 8: Generate and publish code coverage report
@@ -68,4 +69,4 @@ jobs:
       #   uses: madrapps/jacoco-report@v1.3                                 # Action for publishing JaCoCo reports
       #   with:
       #     paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml    # Path to JaCoCo report
-      #     token: ${{ secrets.TOKEN_GITHUB}}                              # GitHub token for authentication
+      #     token: ${{ secrets.TOKEN_GITHUB}}                               # GitHub token for authentication
