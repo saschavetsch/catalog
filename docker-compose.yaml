@@ -1,12 +1,29 @@
 # Run the command 'docker-compose up' to start the services
 
 services:
+
+  db:
+    image: postgres:latest
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: catalog
+      POSTGRES_DB: catalog
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   catalog:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/catalog
+    depends_on:
+      - db
 
   order:
     build:
@@ -16,3 +33,6 @@ services:
       - "8081:8081"
     environment:
       - CATALOG_SERVICE_URL=http://catalog:8080
+
+volumes:
+  postgres_data:
