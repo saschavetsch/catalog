@@ -15,6 +15,21 @@ jobs:
     # Specify the runner environment
     runs-on: ubuntu-24.04
 
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: catalog
+          POSTGRES_USER: catalog
+          POSTGRES_PASSWORD: catalog
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       # Step 1: Check out the repository code
       - uses: actions/checkout@v4 
